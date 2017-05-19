@@ -1,0 +1,12 @@
+{
+    "name": "bzs1984/runo",
+    "description": "runo's code",
+    "authors": [
+        {
+            "name": "bzs",
+            "email": "bizhaoshang@runoqd.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
