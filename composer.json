@@ -12,6 +12,6 @@
             "Runo": "src"
         }
     },
-    "minimum-stability": "0.1",
+    "minimum-stability": "dev",
     "require": {}
 }
