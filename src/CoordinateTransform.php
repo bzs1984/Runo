@@ -21,9 +21,9 @@ class CoordinateTransform{
 	 * @param lat 百度坐标经度
 	 * @return WGS84坐标数组
 	 */
-	public static  function bd09towgs84($lng, $lat) {
-		$gcj   = bd09togcj02($lng, $lat);
-		$wgs84 = gcj02towgs84($gcj[0], $gcj[1]);
+	public static function bd09towgs84($lng, $lat) {
+		$gcj   = self::bd09togcj02($lng, $lat);
+		$wgs84 = self::gcj02towgs84($gcj[0], $gcj[1]);
 		return $wgs84;
 	}
 
@@ -35,8 +35,8 @@ class CoordinateTransform{
 	 * @return 百度坐标数组
 	 */
 	public static function wgs84tobd09($lng, $lat) {
-		$gcj  = wgs84togcj02($lng, $lat);
-		$bd09 = gcj02tobd09($gcj[0], $gcj[1]);
+		$gcj  = self::wgs84togcj02($lng, $lat);
+		$bd09 = self::gcj02tobd09($gcj[0], $gcj[1]);
 		return $bd09;
 	}
 
@@ -49,10 +49,10 @@ class CoordinateTransform{
 	 * @return 百度坐标数组
 	 */
 	public static function gcj02tobd09($lng, $lat) {
-		$z      = sqrt($lng * $lng + $lat * $lat) + 0.00002 * Math.sin($lat * self::$x_pi);
+		$z      = sqrt($lng * $lng + $lat * $lat) + 0.00002 * sin($lat * self::$x_pi);
 		$theta  = atan2($lat, $lng) + 0.000003 * cos($lng * self::$x_pi);
 		$bd_lng = z * cos($theta) + 0.0065;
-		$bd_lat = z * Math.sin($theta) + 0.006;
+		$bd_lat = z * sin($theta) + 0.006;
 		return [$bd_lng, $bd_lat];
 	}
 
@@ -85,13 +85,13 @@ class CoordinateTransform{
 		if (self::out_of_china($lng, $lat)) {
 			return [$lng, $lat];
 		}
-		$dlat = transformlat($lng - 105.0, $lat - 35.0);
-		$dlng = transformlng($lng - 105.0, $lat - 35.0);
+		$dlat = self::transformlat($lng - 105.0, $lat - 35.0);
+		$dlng = self::transformlng($lng - 105.0, $lat - 35.0);
 		$radlat = $lat / 180.0 * self::$pi;
 		$magic = sin($radlat);
 		$magic = 1 - self::$ee * $magic * $magic;
 		$sqrtmagic = sqrt($magic);
-		$dlat = ($dlat * 180.0) / ((self::$a * (1 - $ee)) / ($magic * $sqrtmagic) * self::$pi);
+		$dlat = ($dlat * 180.0) / ((self::$a * (1 - self::$ee)) / ($magic * $sqrtmagic) * self::$pi);
 		$dlng = ($dlng * 180.0) / (self::$a / $sqrtmagic * cos($radlat) * self::$pi);
 		$mglat = $lat + $dlat;
 		$mglng = $lng + $dlng;
@@ -106,11 +106,11 @@ class CoordinateTransform{
 	 * @return WGS84坐标数组
 	 */
 	public static function gcj02towgs84($lng, $lat) {
-		if (out_of_china(lng, lat)) {
+		if (self::out_of_china(lng, lat)) {
 			return [$lng, $lat];
 		}
-		$dlat = transformlat(lng - 105.0, lat - 35.0);
-		$dlng = transformlng(lng - 105.0, lat - 35.0);
+		$dlat = self::transformlat(lng - 105.0, lat - 35.0);
+		$dlng = self::transformlng(lng - 105.0, lat - 35.0);
 		$radlat = $lat / 180.0 * self::$pi;
 		$magic = sin($radlat);
 		$magic = 1 - self::$ee * $magic * $magic;
