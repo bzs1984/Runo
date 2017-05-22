@@ -1,7 +1,8 @@
 <?php
 namespace Runo;
 
-class Des{
+class Des
+{
 
     public function encrypt($input, $key) {
         $size = mcrypt_get_block_size('des', 'ecb');

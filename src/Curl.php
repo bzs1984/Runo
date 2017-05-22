@@ -1,7 +1,8 @@
 <?php
 namespace Runo; 
 
-class Curl{
+class Curl
+{
 
 	public static function  curl_get($url,$header=[])
 	{

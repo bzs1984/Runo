@@ -1,11 +1,13 @@
-<?php 
+<?php
+namespace Runo;  
 /**
  * 百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换的工具
  * 
- * 参考 https://github.com/wandergis/coordtransform 实现的Java版本
- * @author geosmart
+ * 参考 https://github.com/wandergis/coordtransform 实现的php版本
+ * @author runo
  */
-class CoordinateTransform{
+class CoordinateTransform
+{
 	static  $x_pi = 3.14159265358979324 * 3000.0 / 180.0;
 	// π
 	static  $pi = 3.1415926535897932384626;
