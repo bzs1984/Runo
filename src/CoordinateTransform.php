@@ -108,11 +108,11 @@ class CoordinateTransform
 	 * @return WGS84坐标数组
 	 */
 	public static function gcj02towgs84($lng, $lat) {
-		if (self::out_of_china(lng, lat)) {
+		if (self::out_of_china($lng, $lat)) {
 			return [$lng, $lat];
 		}
-		$dlat = self::transformlat(lng - 105.0, lat - 35.0);
-		$dlng = self::transformlng(lng - 105.0, lat - 35.0);
+		$dlat = self::transformlat($lng - 105.0, $lat - 35.0);
+		$dlng = self::transformlng($lng - 105.0, $lat - 35.0);
 		$radlat = $lat / 180.0 * self::$pi;
 		$magic = sin($radlat);
 		$magic = 1 - self::$ee * $magic * $magic;
@@ -122,6 +122,17 @@ class CoordinateTransform
 		$mglat = $lat + $dlat;
 		$mglng = $lng + $dlng;
 		return [$lng * 2 - $mglng, $lat * 2 - $mglat];
+	}
+
+	/**
+	 * 批量转换
+	 *
+	 * @param points 数组：多个gps经纬度坐标转成火星坐标
+	 */
+	public static function batch_wgs84togcj02($points)
+	{
+		$transfromPoints =  array_map("self::wgs84togcj02", $points);
+		return $transfromPoints;
 	}
 
 	/**
