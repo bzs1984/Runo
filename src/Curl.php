@@ -42,7 +42,7 @@ class Curl
 	{
 		$ch = curl_init();
 		
-		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_URL, $url);
 		if($header) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }		
