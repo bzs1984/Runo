@@ -53,8 +53,8 @@ class CoordinateTransform
 	public static function gcj02tobd09($lng, $lat) {
 		$z      = sqrt($lng * $lng + $lat * $lat) + 0.00002 * sin($lat * self::$x_pi);
 		$theta  = atan2($lat, $lng) + 0.000003 * cos($lng * self::$x_pi);
-		$bd_lng = z * cos($theta) + 0.0065;
-		$bd_lat = z * sin($theta) + 0.006;
+		$bd_lng = $z * cos($theta) + 0.0065;
+		$bd_lat = $z * sin($theta) + 0.006;
 		return [$bd_lng, $bd_lat];
 	}
 
@@ -71,8 +71,8 @@ class CoordinateTransform
 		$y = $bd_lat - 0.006;
 		$z = sqrt($x * $x + $y * $y) - 0.00002 * sin($y * self::$x_pi);
 		$theta = atan2($y, $x) - 0.000003 * cos($x * self::$x_pi);
-		$gg_lng = z * cos($theta);
-		$gg_lat = z * sin($theta);
+		$gg_lng = $z * cos($theta);
+		$gg_lat = $z * sin($theta);
 		return [$gg_lng, $gg_lat];
 	}
 
